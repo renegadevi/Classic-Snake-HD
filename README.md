@@ -1,5 +1,8 @@
 # Classic-Snake-HD
-Classic snake game written in Python3 and Pygame
+Classic snake game written in Python3 and Pygame.
+
+*Note:
+I made this as my first game, mainly to evaluate pygame and to get my head around gamedev. As of now, I'll not continue with pygame for any type of game development as it limited my capabilities a lot of what my original idea was for the game and if I do another game in the future, I'll use a different programming language.*
 
 ## Screenshot
 
