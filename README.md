@@ -17,9 +17,15 @@ Download the zip-package from [CLICK HERE](https://github.com/renegadevi/Classic
 Check so you have Python 3 and pygame installed, then just download the repo and run the main.py script.
 
 ```sh
+# Install brew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# Install python 3
 brew install python3
+# Install pygame
 pip3 install pygame
+# Change to downloaded zip/cloned folder
 cd ~/Downloads/Classic-Snake-HD-master
+# run the game.
 python3 main.py
 ```
 
