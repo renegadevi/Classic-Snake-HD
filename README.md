@@ -11,10 +11,17 @@ I made this as my first game, mainly to evaluate pygame and to get my head aroun
 ## How to install and run
 
 ### Windows
-Download the zip-package under the release-tab, extract it and run the game. Is generated with the tool Pyinstaller and has only been tested on Windows 7 and Windows 10 in a virtual machine. With Windows 10 you need to install MSVCP110.dll in order to run the game.
+Download the zip-package from [CLICK HERE](https://github.com/renegadevi/Classic-Snake-HD/releases), extract it and run the game. It is auto-generated with the tool Pyinstaller and has only been tested on Windows 7 and Windows 10 in a virtual machine. When I tried with Windows 10, you need to have Visual C++ Redistributable installed to fix the common MSVCP110.dll problem.
 
 ### macOS
-Check so you have Python 3 and pygame installed. Then just download the repo and run the main.py script.
+Check so you have Python 3 and pygame installed, then just download the repo and run the main.py script.
+
+```sh
+brew install python3
+pip3 install pygame
+cd ~/Downloads/Classic-Snake-HD-master
+python3 main.py
+```
 
 ### Linux
 Has been tested on Ubuntu 16.04 and works without any additional instructions. Just download and run the main.py script in terminal.
