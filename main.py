@@ -237,11 +237,6 @@ class SnakeGame:
         pygame.display.update()
 
         # Main menu
-        if self.skin == 'light':
-            item_rgb = (0, 0, 0)
-        else:
-            item_rgb = (255, 255, 255)
-
         self.generate_menu(
             menu=[
                 'Start Game',
@@ -258,7 +253,8 @@ class SnakeGame:
                 self.game_exit
             ],
             item_id=menu_id,
-            item_rgb=item_rgb)
+            item_rgb=self.skin_fg,
+            item_rgb_active=self.skin_fg_active)
 
     def show_countdown(self, background=None, fg_color=(255, 255, 255)):
         """ Show a countdown (3..2..1..)
@@ -372,6 +368,7 @@ class SnakeGame:
             self.skin_text = "Nokia"
             self.skin_bg = (132, 175, 99)
             self.skin_fg = (34, 34, 34)
+            self.skin_fg_active = (210, 210, 210)
             self.skin_apple = (34, 34, 34)
             self.skin_snake = (34, 34, 34)
             self.skin_snake_border = (34, 34, 34)
@@ -381,6 +378,7 @@ class SnakeGame:
             self.skin_text = "Nokia (Backlit)"
             self.skin_bg = (155, 202, 36)
             self.skin_fg = (37, 61, 4)
+            self.skin_fg_active = (210, 210, 210)
             self.skin_apple = (37, 61, 4)
             self.skin_snake = (37, 61, 4)
             self.skin_snake_border = (155, 202, 36)
@@ -390,6 +388,7 @@ class SnakeGame:
             self.skin_text = "Dark"
             self.skin_bg = (40, 44, 52)
             self.skin_fg = (225, 228, 234)
+            self.skin_fg_active = (198, 120, 214)
             self.skin_apple = (224, 106, 92)
             self.skin_snake = (198, 120, 214)
             self.skin_snake_border = (168, 0, 205)
@@ -399,6 +398,7 @@ class SnakeGame:
             self.skin_text = "Hacker"
             self.skin_bg = (0, 0, 0)
             self.skin_fg = (255, 255, 255)
+            self.skin_fg_active = (0, 255, 0)
             self.skin_apple = (0, 255, 0)
             self.skin_snake = (0, 255, 0)
             self.skin_snake_border = (0, 255, 0)
@@ -408,6 +408,7 @@ class SnakeGame:
             self.skin_text = "Telmac"
             self.skin_bg = (65, 78, 87)
             self.skin_fg = (247, 255, 251)
+            self.skin_fg_active = (150, 150, 150)
             self.skin_apple = (247, 255, 251)
             self.skin_snake = (247, 255, 251)
             self.skin_snake_border = (247, 255, 251)
@@ -417,6 +418,7 @@ class SnakeGame:
             self.skin_text = "Light"
             self.skin_bg = (255, 255, 255)
             self.skin_fg = (0, 0, 0)
+            self.skin_fg_active = (105, 159, 54)
             self.skin_apple = (105, 159, 54)
             self.skin_snake = (234, 175, 40)
             self.skin_snake_border = (238, 238, 238)
