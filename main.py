@@ -17,7 +17,7 @@ import pygame
 
 __author__ = "Philip Andersen <philip.andersen@codeofmagi.net>"
 __license__ = "MIT"
-__version__ = "1.0"
+__version__ = "1.1"
 __copyright__ = "Copyright © 2016 Philip Andersen"
 
 
