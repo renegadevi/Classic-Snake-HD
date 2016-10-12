@@ -237,6 +237,11 @@ class SnakeGame:
         pygame.display.update()
 
         # Main menu
+        if self.skin == 'light':
+            item_rgb = (0, 0, 0)
+        else:
+            item_rgb = (255, 255, 255)
+
         self.generate_menu(
             menu=[
                 'Start Game',
@@ -252,7 +257,8 @@ class SnakeGame:
                 self.toggle_skin,
                 self.game_exit
             ],
-            item_id=menu_id)
+            item_id=menu_id,
+            item_rgb=item_rgb)
 
     def show_countdown(self, background=None, fg_color=(255, 255, 255)):
         """ Show a countdown (3..2..1..)
@@ -310,7 +316,7 @@ class SnakeGame:
         pixels per square. If screen resolusion is dicided by 8, then toggle
         between 16, 32, 64 pixels.
 
-        After new value is set, then recalculate the grid and retuen to the
+        After new value is set, then recalculate the grid and return to the
         welcome screen.
         """
         if self.cell_size[0] == 10:
@@ -360,7 +366,6 @@ class SnakeGame:
                 self.skin = 'light'
             elif self.skin == 'light':
                 self.skin = 'nokia'
-
 
         # Skin changer
         if self.skin == 'nokia':
@@ -439,7 +444,7 @@ class SnakeGame:
         """
         if self.snake_speed[0] == 10:
             self.snake_speed = (15, "Easy")
-        if self.snake_speed[0] == 15:
+        elif self.snake_speed[0] == 15:
             self.snake_speed = (30, "Medium")
         elif self.snake_speed[0] == 30:
             self.snake_speed = (60, "Hard")
