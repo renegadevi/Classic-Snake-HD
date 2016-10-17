@@ -29,8 +29,15 @@ cd ~/Downloads/Classic-Snake-HD-master
 python3 main.py
 ```
 
-### Linux
-Has been tested on Ubuntu 16.04 and works without any additional instructions. Just download and run the main.py script in terminal.
+### Linux (Ubuntu 16.10)
+Has been tested on Ubuntu 16.10. It's very simple, download the zip or clone it,
+then open a terminal inside the downloaded folder 'Classic-Snake-HD-master' and
+execute these commands.
+```sh
+sudo apt-get install python3-pip
+python3 -m pip install pygame
+python3 main.py
+```
 
 ## Built with Open-source
 
