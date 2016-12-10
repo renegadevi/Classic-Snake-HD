@@ -11,14 +11,18 @@
 # (https://github.com/renegadevi/Classic-Snake-HD).
 #
 
-import sys
-import random
-import pygame
-
 __author__ = "Philip Andersen <philip.andersen@codeofmagi.net>"
 __license__ = "MIT"
-__version__ = "1.1"
+__version__ = "1.2"
 __copyright__ = "Copyright © 2016 Philip Andersen"
+
+try:
+    import sys
+    import random
+    import json
+    import pygame
+except ImportError as e:
+    exit(str(e) + ". Try install pygame with 'pip3 install pygame'")
 
 
 class SnakeGame:
@@ -54,6 +58,14 @@ class SnakeGame:
         self.snake_speed = (15, "Easy")
         self.highscore = 0
         self.calculate_grid(first_run=True)
+
+        # Get skins
+        try:
+            with open('skins.json') as data:
+                self.skins = json.load(data)
+        except FileNotFoundError as e:
+            self.skins = None
+            print(str(e) + "\nSkins file missing, using default variables.")
         self.toggle_skin('dark')
 
         # Show welcome screen
@@ -331,107 +343,78 @@ class SnakeGame:
         self.calculate_grid()
         self.show_welcome_screen(menu_id=2, background=self.image_welcome)
 
-    def toggle_skin(self, get_skin=False):
+    def toggle_skin(self, get_skin=False, get_toggle=False):
         """ Toggle between skins or get desired skin.
 
         Args:
             get_skin (bool): If true get the skin instead of toggle
-
-        Skins:
-            nokia
-            nokia-backlit
-            dark
-            light
-            hacker
-            telmac
+            get_toggle (bool): If true place menu marker on skin toggle
         """
 
-        # Toggler
-        if get_skin:
-            self.skin = get_skin
+        # Check if skins.json returned some data
+        if self.skins:
+
+            # See if it's asking for a specified skin, else toggle
+            if get_skin:
+                self.skin = get_skin
+            else:
+                get_toggle = True
+
+                # Loop and get key-value of next skin, if it loops
+                # to the end, then pick the first one from the loop
+                loop, first_loop = 0, 0
+                for key, value in sorted(self.skins.items()):
+
+                    # Save data from first loop
+                    if first_loop == 0:
+                        first_key = key
+                        first_loop += 1
+
+                    # Check if to break
+                    if loop == 1:
+                        get_skin = key
+                        self.skin = key
+                        break
+
+                    # If skin matches, then break next loop
+                    if key == self.skin:
+                        loop += 1
+
+            # If the loop never break, use values from first loop
+            if get_skin is False:
+                get_skin = first_key
+                self.skin = first_key
+
+            # Set skin variables
+            self.skin_text = self.skins[get_skin]['label']
+            self.skin_bg = tuple(self.skins[get_skin]['bg'])
+            self.skin_fg = tuple(self.skins[get_skin]['fg'])
+            self.skin_fg_active = tuple(self.skins[get_skin]['fg_active'])
+            self.skin_apple = tuple(self.skins[get_skin]['apple'])
+            self.skin_snake = tuple(self.skins[get_skin]['snake'])
+            self.skin_snake_edges = tuple(self.skins[get_skin]['snake_edges'])
+            self.skin_grid = tuple(self.skins[get_skin]['grid'])
+
         else:
-            if self.skin == 'nokia':
-                self.skin = 'nokia-backlit'
-            elif self.skin == 'nokia-backlit':
-                self.skin = 'dark'
-            elif self.skin == 'dark':
-                self.skin = 'hacker'
-            elif self.skin == 'hacker':
-                self.skin = 'telmac'
-            elif self.skin == 'telmac':
-                self.skin = 'light'
-            elif self.skin == 'light':
-                self.skin = 'nokia'
-
-        # Skin changer
-        if self.skin == 'nokia':
-            self.skin_text = "Nokia"
-            self.skin_bg = (132, 175, 99)
-            self.skin_fg = (34, 34, 34)
-            self.skin_fg_active = (210, 210, 210)
-            self.skin_apple = (34, 34, 34)
-            self.skin_snake = (34, 34, 34)
-            self.skin_snake_border = (34, 34, 34)
-            self.skin_grid = (132, 175, 99)
-
-        elif self.skin == 'nokia-backlit':
-            self.skin_text = "Nokia (Backlit)"
-            self.skin_bg = (155, 202, 36)
-            self.skin_fg = (37, 61, 4)
-            self.skin_fg_active = (210, 210, 210)
-            self.skin_apple = (37, 61, 4)
-            self.skin_snake = (37, 61, 4)
-            self.skin_snake_border = (155, 202, 36)
-            self.skin_grid = (155, 202, 36)
-
-        elif self.skin == 'dark':
-            self.skin_text = "Dark"
+            # Use default values
+            self.skin = 'default'
+            self.skin_text = "Default (Missing skins file)"
             self.skin_bg = (40, 44, 52)
             self.skin_fg = (225, 228, 234)
             self.skin_fg_active = (198, 120, 214)
             self.skin_apple = (224, 106, 92)
             self.skin_snake = (198, 120, 214)
-            self.skin_snake_border = (168, 0, 205)
+            self.skin_snake_edges = (168, 0, 205)
             self.skin_grid = (59, 64, 72)
 
-        elif self.skin == 'hacker':
-            self.skin_text = "Hacker"
-            self.skin_bg = (0, 0, 0)
-            self.skin_fg = (255, 255, 255)
-            self.skin_fg_active = (0, 255, 0)
-            self.skin_apple = (0, 255, 0)
-            self.skin_snake = (0, 255, 0)
-            self.skin_snake_border = (0, 255, 0)
-            self.skin_grid = (0, 0, 0)
-
-        elif self.skin == 'telmac':
-            self.skin_text = "Telmac"
-            self.skin_bg = (65, 78, 87)
-            self.skin_fg = (247, 255, 251)
-            self.skin_fg_active = (150, 150, 150)
-            self.skin_apple = (247, 255, 251)
-            self.skin_snake = (247, 255, 251)
-            self.skin_snake_border = (247, 255, 251)
-            self.skin_grid = (65, 78, 87)
-
-        elif self.skin == 'light':
-            self.skin_text = "Light"
-            self.skin_bg = (255, 255, 255)
-            self.skin_fg = (0, 0, 0)
-            self.skin_fg_active = (105, 159, 54)
-            self.skin_apple = (105, 159, 54)
-            self.skin_snake = (234, 175, 40)
-            self.skin_snake_border = (238, 238, 238)
-            self.skin_grid = (255, 255, 255)
-
         # Update background
-        self.image_welcome = 'resources/theme-' + self.skin + '.png'
+        self.image_welcome = 'skins/' + self.skin + '.png'
 
         # Return to welcome screen
-        if get_skin:
-            self.show_welcome_screen(background=self.image_welcome)
-        else:
+        if get_toggle:
             self.show_welcome_screen(menu_id=3, background=self.image_welcome)
+        else:
+            self.show_welcome_screen(background=self.image_welcome)
 
     def toggle_snake_speed(self):
         """ Toggle between snake speed difficulty.
@@ -503,16 +486,16 @@ class SnakeGame:
             x = coordinates['x'] * self.cell_size[0]
             y = coordinates['y'] * self.cell_size[0]
 
-            # Draw snake inner border
-            snake_border_rect = pygame.Rect(
+            # Draw snake inner edge
+            snake_edge_rect = pygame.Rect(
                 x, y,
                 self.cell_size[0],
                 self.cell_size[0]
             )
             pygame.draw.rect(
                 self.screen,
-                self.skin_snake_border,
-                snake_border_rect
+                self.skin_snake_edges,
+                snake_edge_rect
             )
 
             # Fill snake color
